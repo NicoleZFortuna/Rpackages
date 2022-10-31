@@ -77,6 +77,8 @@ You can now delete the code for defining these three objects from the hello.R fi
 
 Easy as.
 
+Documentation for your package data.
+
 #### Functions
 
 Now we can start to organise the functions in a useful way. There is no set way to do this, so you should pick something that is going to be most useful for you. Some peope keep all their functions in the same file, others create a new file for each function in their package. Personally, I like to have a few files, each with their own theme. I will then organise the functions into each of these files according to what I think are useful groupings.

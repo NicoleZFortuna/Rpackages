@@ -23,15 +23,15 @@ install.packages("devtools")
 ```
 
 ## Initiating a new package
-The easiest method of initiating a new package is to create an RStudio project. Either click on 'File' and then 'New Project', or ![The add project button](pics/ProjectButton.png){width=3%} in the top left corner of the RStudio window. A 'Create Project' window will pop up, and you should select 'New Directory' followed by 'R Package'. The following window will then open, allowing you to specify the name for your package as well as choose the directory in which the package will be stored. At this point, you can select if you would like to initiate this repository with git repository. If you already have git installed on your computer, I recommend that you check the 'Create a git repository' box before you select 'Create Project'.
+The easiest method of initiating a new package is to create an RStudio project. Either click on 'File' and then 'New Project', or <img src="pics/ProjectButton.png" width="20"> in the top left corner of the RStudio window. A 'Create Project' window will pop up, and you should select 'New Directory' followed by 'R Package'. The following window will then open, allowing you to specify the name for your package as well as choose the directory in which the package will be stored. At this point, you can select if you would like to initiate this repository with git repository. If you already have git installed on your computer, I recommend that you check the 'Create a git repository' box before you select 'Create Project'.
 
-<center>![](pics/ProjectPrompt.png){width=50%}</center>
+<center><img src="pics/ProjectPrompt.png" width="400"></center>
 
 In your project window, you will see that a number of files have been automatically generated. These are the basic file types that are required for an R package.
 
 **By hand**
 
-Another way to initiate a new R package, is by executing the following line:
+Another way to initiate a new R package, is by executing the following line, of course supplying your own directory and name.
 
 ```{r, eval = FALSE}
 create_package("~/directorypath/packagename")
@@ -168,7 +168,7 @@ The most important things to include in your package documentation is the title,
 
 You can quickly generate skeleton documentation by placing your cursor somewhere within your function, and then clicking on 'Code', then 'Insert roxygen skeleton'. You can then fill out this description to have meaningful information.
 
-** Tags that you can use to document your functions are listed bellow:**
+**Tags that you can use to document your functions are listed bellow:**
 
 | Input | Purpose |
 |-|---|
@@ -211,40 +211,76 @@ There are two ways that you can run these automatic checks. The first is to clic
 
 In either case, you will see a large text output showing the outcome of these various checks. At the end of this output you will see a summary of the conclusions of the check that will look something like this:
 
-![](pics/CheckOutput.png){width=30%}
+<center><img src="pics/CheckOutput.png" width="400"></center>
  
- You can now scroll through the output for a better description of exactly what is causing these errors. As this functionality has been designed expressly to help users improve their packages, the error messages are usually extremely helpful and often prompt you on how to fix the issue.
-
-## Testing package
+ You can now scroll through the output for a better description of exactly what is causing these errors. As this functionality has been designed expressly to help users improve their packages, the error messages are usually extremely helpful and often prompt you on how to fix the issue. Errors need to be fixed for proper package functioning. You should resolve as many warnings and notes as is feasible.
 
 ## Vignettes
 
-Often packages can come with a number of vignettes that assist the user to become acquainted with the full functionality of the package.
+Often packages can come with a number of vignettes that assist the user to become acquainted with the full functionality of the package. For a package published on GitHub, the bare minimum in this regard is to create a README with instructions on how to install the package. Ideally you will also provide some examples of the functions available and how to use them.
+
+To initiate a README:
+```{r, eval=FALSE}
+use_readme_rmd()
+```
+
+This will build a README file and open it. The file will contain a lot of prompts for things that you can include in your README. Now you just need add some information to the file. You can just delete sections that you are not interested in.
+
+If you want to see a preview of what the README will look like, click the <img src="pics/Knit.png" width="50"> button at the top of the main panel of RStudio. When you push your package to GitHub, the html version of your README will be visible in your GitHub package page.
 
 ## How to use git to track your package over time
 
+As stated previously, a git repository can easily be initiated by running `use_git()`, including performing your first commit. You can also specify that you want to initiate your package RStudio project with a git repository. If you do it this way however, you will need to create your first commit yourself.
+
+There are number of ways of interacting with git (terminal, GitHub Desktop, RStudio...). I will keep it simple for this, and show you how you can keep track of your package just using RStudio functionality. In the top right panel, you should see a git tab, if you click on it you will be given a number of tools that will allow you to interact with git. Along the top panel of this tab are a number of buttons that can replace the most common git terminal commands. This tab will also list any files that do not match the previous commit. This could be because the file was modified, or because the file has been created since the last commit. These types of files will appear as shown below. 
+
+<center><img src="pics/GitTab1.png" width="400"></center>
+
+Newly added files will have a yellow question mark under the Status column, while a modified file will have a blue M listed to the right hand side of the column. It can be seen that under the Staged column, neither of the boxes have been ticked off. This means that neither of these files have been staged to be committed. In order to stage files, the user simply needs to tick the boxed listed in the staged column. As shown below.
+
+<center><img src="pics/GitTab1.png" width="400"></center>
+
+once these files have been staged, their status will change. New files will be indicated with a green A, while the blue M for modified files will now be listed to the left. To commit the selected files the user needs to select the Commit button. This will open up a window that will give the opportunity to provide a commit message.
+
+If you would like to see the differences in the listed files when compared to the most recent commit, you can select the Diff button. This will open up a window which will allow the user to explore the differences for each affected file. It is possible to stage files and commit them within this window.
+
+In the top panel of the git tab, it is possible to pull from the remote repository (blue down button), and push to the remote repository (green up button). You can view the previous commit messages by clicking the clock. The blue gear button provides functionality to **Revert...** to previous commits, as well as to modify the **Ignore...** file. The button with purple shapes allows the user to create new branches, as well as add new remote repositories. Finally, you can see the name of the branch currently occupied. In the case of the provided example, this is the 'master' branch. If you click on the branch name, you will be able to switch between the branches that you have created.
+
+#### Open Terminal in RStudio
+
+Terminal can be opened from within the RStudio IDE. It is opened next to the Console tab. If it is not already open you can open a new Terminal shell with the following keyboard short-cut: **Shift+Alt+T**. You can also open this window by clicking on **Tools->Terminal->New Terminal**. Once you have a Terminal shell open, you can use it as a regular Terminal window to initiate git and track changes in your project. If you want to learn how to use git through the command line, you can use the [Pro Git](https://git-scm.com/book/en/v2) handbook.
+
 ### Publishing your package on GitHub
 
+If you have been working on a personal project and want to share it with other people, you will need to create a remote repository for your project on a host like github. First you will need to create an account if you do not already have one.
 
+Once you have an account, on the repositories tab of your profile you can select to initiate a new repository. You will be required to name your project, and select if the repository is to be public or private. You can choose if you want to provide a description of your project, or if you want to automatically generate helper files like a README, .gitignore, or a license. If you are creating this remote repository for an already existing local repository you should NOT initiate a README, .gitignore, or choose a license. If you choose to initiate these files you will need to resolve merge conflicts when you try to push your local project to the remote repository.
 
-### S3 functions
+Once you select 'Create repository', you will be taken to a page with instructions on how set up the repository depending on your particular situation. The commands are provided for you including the correct git addresses, so you can copy the relevant commands directly into terminal, making sure that you are within the correct local directory.
 
-### Examples
+For example, if you want to push a local repository on to your new remote, you can follow the instructions under the heading "…or push an existing repository from the command line", as bellow:
+```
+git remote add origin https://github.com/JohnDoe/test.git
+git push -u origin master
+```
 
+From this point on, you can work directly with the Git tab on RStudio. Whenever you have an update to the package commit the change, and push the new version to your GitHub repository.
 
+## Additional resources
 
+**Keyboard shortcuts**
 
-## Useful shortcuts
+Install Package:  'Cmd + Shift + B'
 
-Install Package:           'Cmd + Shift + B'
-Check Package:             'Cmd + Shift + E'
-Test Package:              'Cmd + Shift + T'
+Check Package:    'Cmd + Shift + E'
 
-## Useful resources
+**Useful resources**
 
-Licensing
+On building functions: https://r4ds.had.co.nz/functions.html
 
-For the absolute minimum required for a functioning R package, you can check out this blog by [Hilary Parker](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/). This blog also shows you how to set up an R package manually.
+Licensing your package: https://thinkr-open.github.io/licensing-r/whatis.html
 
-Main: http://r-pkgs.had.co.nz/
-Style guide
+For THE R package guide: http://r-pkgs.had.co.nz/
+
+For all things git: https://git-scm.com/book/en/v2
+

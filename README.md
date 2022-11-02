@@ -56,7 +56,7 @@ required for an R package.
 
 If you have initiated a Git repository, you should make your first
 commit. Go to the [**How to use git to track your package over
-time**](##how-to-use-git-to-track-your-package-over-time) section for
+time**](##%20how-to-use-git-to-track-your-package-over-time) section for
 instructions on how to do this.
 
 ### By hand
@@ -150,6 +150,11 @@ addition. You will need to provide the Title, Author (yourself),
 Maintainer (yourself), and provide a Description. If you open the
 DESCRIPTION file you will see prompts for all of these fields. Do not
 touch the other automatically generated fields.
+
+In the case that more than one person is contributing to your package,
+you can click
+[here](https://r-pkgs.org/metadata.html#description-authors) to find out
+how to properly credit people.
 
 In addition to the fields that are already in your file, there is
 additional information that you can provide, the most important of which
@@ -268,17 +273,17 @@ functions into each of these files according to what I think are useful
 groupings.
 
 Open how ever many scripts as you think is useful, and add the relevant
-functions to each script. Give each script a relevant name, and save in
-the R folder of your package. Once you have finished this, you should no
-longer have a file called hello.R.
+functions to each script. Give each script a relevant name, and save it
+in the R folder of your package. Once you have finished this, you should
+no longer have a file called hello.R.
 
 The next step is to document your functions appropriately. This
 documentation will be used to generate the help files for the functions
 in your package. A good thing about the syntax for documentation
 specified by the `roxygen2` and `devtools` packages is that the
-documentation for the function will always be placed above the function
-itself. This will help you to remember to update the documentation if
-you ever update the function.
+documentation will always be placed above the function itself. This will
+help you to remember to update the documentation if you ever update the
+function.
 
 The syntax is similar to that used for documenting data.
 
@@ -300,17 +305,16 @@ Again, note that each line of the documentation is begins with `#'`.
 This is required for the `roxygen2` function to recognise that this
 information should be treated as documentation.
 
-The most important things to include in your package documentation is
-the title, the parameters, and to specify if the function will be
-exported. If you do not include `@export` in the description, the
-function will not be available to users. You may choose to make a
-function internal (not available to users) in the case that it is called
-from within another function, and is only intended to support another
-function that is exported.
+The most important things to include are the title, the parameters, and
+to specify if the function will be exported. If you do not include
+`#' @export`, the function will not be available to users. You may
+choose to make a function internal (not available to users) in the case
+that it is called from within another function, and is only intended to
+support that function.
 
 You can quickly generate skeleton documentation by placing your cursor
-somewhere within your function, and then clicking on **Code-\>Insert
-roxygen skeleton**. You can then fill out this description to have
+somewhere within a function, and then clicking on **Code-\>Insert
+roxygen skeleton**. You can then fill out the skeleton to have
 meaningful information.
 
 **Tags that you can use to document your functions are listed bellow:**
@@ -323,7 +327,7 @@ meaningful information.
 | `@returns`     | To give details about the format of the output of your function.                                                                                                                                         |
 | `@export`      | Stated if the function is to be made available to users. No additional text should be provided.                                                                                                          |
 | `@example`     | Used to give a self contained example of how the function can be used.                                                                                                                                   |
-| `@importFrom`  | Used to specify if there are any functions used internally by your function that originate from another package. should appear in the format `@importFrom packageName functionName`.                     |
+| `@importFrom`  | Used to specify if there are any functions used internally by your function that originate from another package. Should appear in the format `@importFrom packageName functionName`.                     |
 
 Importing functions that your function requires is useful as it makes
 sure that those functions have been exported by your package without
@@ -332,8 +336,8 @@ having to load the entire supporting package into the environment.
 #### Generating NAMESPACE and help files
 
 Once you have finished documenting your data and functions, it is time
-to generate the content of the NAMESPACE file, and files for the man
-folder (the basis for your help files).
+to generate the content of the NAMESPACE file, and generate files for
+the man folder (the basis for your help files).
 
 To do this, all you need is to run the following line:
 
@@ -352,10 +356,13 @@ documented your functions correctly (specifically, that you included
 `#' @export` in your documentation).
 
 Check the contents of your man folder. It should be filled with .Rd
-files for each of your functions.
+files for each of your functions. You should never edit these files by
+hand.
 
-You can now inspect the help files that your have generated using the
+You can now inspect the help files that you have generated using the
 standard forms: `?tellMyFortune`, or `help(tellMyFortune)`.
+
+## Installing your package
 
 In top right pane of your RStudio window, click **Build-\>Install**.
 Alternatively, you can run the command `install()` in your console. You
@@ -367,17 +374,16 @@ time to make a commit.
 ## Checking your package
 
 There are a number of checks that can be run to make sure that your R
-package has been built correctly. As is the case with many of the other
-aspects of building packages, many of these checks can be done
-automatically.
+package has been built correctly. As is the case with other aspects of
+building packages, many of these checks can be done automatically.
 
 There are two ways that you can run these automatic checks. The first is
-to click **Build-\>Check** in the top right hand corner of your RStudio
-window. The second is to run `check()` in your console.
+to click **Build-\>Check**. The second is to run `check()` in your
+console.
 
 In either case, you will see a large text output showing the outcome of
 these various checks. At the end of this output you will see a summary
-of the conclusions of the check that will look something like this:
+of the conclusions of the check, which will look something like this:
 
 <center>
 <img src="pics/CheckOutput.png" width="300">
@@ -386,7 +392,7 @@ of the conclusions of the check that will look something like this:
 If issues with the package are flagged, you can now scroll through the
 output for a better description of exactly what is causing errors. As
 this functionality has been designed expressly to help users improve
-their packages, the error messages are usually extremely helpful and
+their packages, the error messages are usually extremely helpful, and
 often prompt you on how to fix the issue. Errors need to be fixed for
 proper package functioning. You should resolve as many warnings and
 notes as is feasible.
@@ -406,37 +412,62 @@ To initiate a README:
 use_readme_rmd()
 ```
 
-This will build a README file and open it. The file will contain a lot
-of prompts for things that you can include in your README. Now you just
-need add some information to the file. You can just delete sections that
-you are not interested in.
+This will build a README.Rmd file and open it. The file will contain a
+lot of prompts for things that you can include. Now you just need add
+some information to the file. You can delete sections that you are not
+interested in.
 
 If you want to see a preview of what the README will look like, click
 the <img src="pics/Knit.png" width="50"> button at the top of the main
 pane of RStudio. Alternatively, you can run `build_readme()`. When you
-push your package to GitHub, the html version of your README will be
-visible in your GitHub package page.
+push your package to GitHub, your README will be visible in your GitHub
+package page.
 
-How to install
+To give instructions on how to install the package, add an R code chunk
+to your README. You can do this by clicking the
+<img src="pics/CodeChunk.png" style="width:3.0%" /> button and then
+selecting **R**. Add the argument `eval=FALSE` to the code chunk to
+prevent the code from being evaluated. Within the code chunk you can
+give provide the code that will be used to install the package. The code
+chunk should look something like this:
+
+<img src="pics/rEval.png" style="width:40.0%" />
+
+If you want to demonstrate how to use a function and display the output
+of that function, then don’t include `eval=FALSE` argument.
+
+If you would like to create additional vignettes on top of the README
+you can run the following:
+
+``` r
+use_vignette("vignetteName")
+```
+
+This will generate a vignettes folder, and a template vignette for you
+to fill.
+
+Before you push a vignette to your GitHub, you must first
+<img src="pics/Knit.png" width="50"> the the file the generate the html
+document that will be read.
 
 # How to use git to track your package over time
 
 As stated previously, a Git repository can easily be initiated by
 running `use_git()`, including performing your first commit. You can
-also specify that you want to initiate your package RStudio project with
-a Git repository. If you do it this way however, you will need to create
-your first commit yourself.
+also specify that you want to initiate your RStudio project with a Git
+repository. If you do it this way however, you will need to create your
+first commit yourself.
 
 There are number of ways of interacting with Git (terminal, GitHub
-Desktop, RStudio…). I will keep it simple for this, and show you how you
-can keep track of your package just using RStudio functionality. In the
-top right pane, you should see a Git tab, if you click on it you will be
-given a number of tools that will allow you to interact with Git. Along
-the top pane of this tab are a number of buttons that can replace the
-most common Git terminal commands. This tab will also list any files
-that do not match the previous commit. This could be because the file
-was modified, or because the file has been created since the last
-commit. These types of files will appear as shown below.
+Desktop, RStudio…). I will keep it simple for this workshop, and show
+you how you can keep track of your package just by using RStudio
+functionality. In the top right pane, you should see a Git tab, if you
+click on it you will be given a number of tools that will allow you to
+interact with Git. Along the top of this tab are a number of buttons
+that can replace the most common Git terminal commands. This tab will
+also list any files that do not match the previous commit. This could be
+because the file was modified, or because the file has been created
+since the last commit. These types of files will appear as shown below.
 
 <center>
 <img src="pics/GitTab1.png" width="400">
@@ -454,15 +485,17 @@ shown below.
 <img src="pics/GitTab1.png" width="400">
 </center>
 
-once these files have been staged, their status will change. New files
+Once these files have been staged, their status will change. New files
 will be indicated with a green A, while the blue M for modified files
-will now be listed to the left. To commit the selected files the user
-needs to select the Commit button. This will open up a window that will
-give the opportunity to provide a commit message.
+will now be listed to the left. To commit the selected files, the user
+needs to select the **Commit** button. This will open up a window that
+will give the opportunity to provide a commit message. Provide a
+meaningful description of the changes that you have made, then select
+**Commit**.
 
 If you would like to see the differences in the listed files when
-compared to the most recent commit, you can select the Diff button. This
-will open up a window which will allow the user to explore the
+compared to the most recent commit, you can select the **Diff** button.
+This will open up a window which will allow the user to explore the
 differences for each affected file. It is possible to stage files and
 commit them within this window.
 
@@ -479,21 +512,23 @@ switch between the branches that you have created.
 
 ### Open Terminal in RStudio
 
-Terminal can be opened from within the RStudio IDE. It is opened next to
-the Console tab. If it is not already open you can open a new Terminal
-shell with the following keyboard short-cut: **Shift+Alt+T**. You can
-also open this window by clicking on **Tools-\>Terminal-\>New
-Terminal**. Once you have a Terminal shell open, you can use it as a
-regular Terminal window to initiate Git and track changes in your
-project. If you want to learn how to use Git through the command line,
-you can use the [Pro Git](https://git-scm.com/book/en/v2) handbook.
+Terminal can be opened from within the RStudio IDE. It is opened in a
+new tab in the Console pane. If it is not already open you can open a
+new Terminal shell with the following keyboard short-cut:
+**Shift+Alt+T**. You can also open this window by clicking on
+**Tools-\>Terminal-\>New Terminal**. Once you have a Terminal shell
+open, you can use it as a regular Terminal window to initiate Git and
+track changes in your project. If you want to learn how to use Git
+through the command line, you can use the [Pro
+Git](https://git-scm.com/book/en/v2) handbook.
 
 ## Publishing your package on GitHub
 
-If you have been working on a personal project and want to share it with
-other people, you will need to create a remote repository for your
-project on a host like github. First you will need to create an account
-if you do not already have one.
+If you want to share your package with other people, you will need to
+create a remote repository for your project on a host like GitHub. First
+you will need to create an account if you do not already have one. Click
+[here](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account)
+for instructions on how to do so.
 
 Once you have an account, on the repositories tab of your profile you
 can select to initiate a new repository. You will be required to name
@@ -506,21 +541,23 @@ an already existing local repository you should NOT initiate a README,
 you will need to resolve merge conflicts when you try to push your local
 project to the remote repository.
 
-Once you select ‘Create repository’, you will be taken to a page with
+Once you select **Create repository**, you will be taken to a page with
 instructions on how set up the repository depending on your particular
 situation. The commands are provided for you including the correct Git
 addresses, so you can copy the relevant commands directly into terminal,
-making sure that you are within the correct local directory.
+making sure that you are within the correct local directory. If you use
+the terminal window within RStudio, you should automatically be in the
+correct directory.
 
 For example, if you want to push a local repository on to your new
 remote, you can follow the instructions under the heading “…or push an
 existing repository from the command line”, as bellow:
 
     git remote add origin https://github.com/JohnDoe/test.git
-    git push -u origin master
+    git push -u origin main
 
 From this point on, you can work directly with the Git tab on RStudio.
-Whenever you have an update to the package commit the change, and push
+Whenever you have an update to the package, commit the change and push
 the new version to your GitHub repository.
 
 ### Automatically generating a remote repository
@@ -530,7 +567,7 @@ GitHub account, you will be able to automatically generate a remote
 repository, and push your package to that remote using the `usethis`
 package.
 
-If your run:
+Simply run:
 
 ``` r
 use_github()
@@ -545,6 +582,14 @@ The following checks will be performed:
 
 If these checks pass, the following actions will be performed:
 
+-   An associated repository will be created on your GitHub
+-   That GitHub repository will be added to your local repository as the
+    origin remote
+-   Make an initial push to GitHub
+-   Calls `use_github_links()` if the project is an R package, so as to
+    add information to the DESCRIPTION file regarding the GitHub
+    repository
+
 ## Additional resources
 
 **Keyboard shortcuts**
@@ -555,18 +600,19 @@ Check Package: ‘Cmd + Shift + E’
 
 **List of functions**
 
-| Function            | Purpose |
-|---------------------|---------|
-| `create_package()`  |         |
-| `use_git()`         |         |
-| `use_gpl_license()` |         |
-| `use_data_raw()`    |         |
-| `use_data()`        |         |
-| `document()`        |         |
-| `use_package()`     |         |
-| `use_readme_rmd()`  |         |
-| `build_readme()`    |         |
-| `use_github()`      |         |
+| Function             | Purpose                                                                                                            |
+|----------------------|--------------------------------------------------------------------------------------------------------------------|
+| `create_package()`   | Generates a new RStudio package project.                                                                           |
+| `use_git()`          | Initiates a Git repository and performs the first commit.                                                          |
+| `use_gpl_license()`  | Generates files and metadata associated with th GPL version 3 license.                                             |
+| `use_data_raw()`     | Creates a data_raw folder if there isn’t one, and generates a script for defining the generation of a data object. |
+| `use_data()`         | Creates a data folder if ther isn’t one, and creates a file for that object.                                       |
+| `document()`         | Uses function documentation to generate help files.                                                                |
+| `use_package()`      | Adds a package to the Imports field of the DESCRIPTION file.                                                       |
+| `use_readme_rmd()`   | Generates a README.Rmd file.                                                                                       |
+| `build_readme()`     | Uses the README.Rmd file to build the README.md file.                                                              |
+| `use_github()`       | Generates a remote repository for the local Git repository.                                                        |
+| `use_github_links()` | Adds metadata to the DESCRIPTION file.                                                                             |
 
 **Useful resources**
 
@@ -581,5 +627,11 @@ package](https://thinkr-open.github.io/licensing-r/whatis.html)
 
 [A guide for Git use with R](https://happygitwithr.com/)
 
+[Setting up your own GitHub
+account](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account)
+
 [Formally testing your package](https://r-pkgs.org/testing-basics.html):
 This is something that we have not discussed in this workshop.
+
+[A package for generating package
+icons](https://github.com/mitchelloharawild/icons)

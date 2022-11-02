@@ -10,9 +10,10 @@ on function construction click
 [here](https://r4ds.had.co.nz/functions.html).
 
 This workshop comes with a set of existing functions contained in the
-MyFunctions.R file of this GitHub repository. If you would prefer to use
-some of your own existing functions, you are welcome to do so. If you
-choose to do so, not every part of the workshop will apply to you.
+**MyFunctions.R** file of this GitHub repository. If you would prefer to
+use some of your own existing functions, you are welcome to do so. The
+slides that were used as an introduction to this workshop will also be
+provided in this repository if you would like to view them again.
 
 Much of the process of R package building has been automated by a
 variety of packages that have all had a significant contribution from
@@ -83,8 +84,8 @@ The function will prompt you to make a first commit. Agree.
 ### Required files and folders
 
 R packages must be organised with a particular file structure. Some
-files and folders files and folders are more or less necessary, but you
-can expect to interact with some combination of the following.
+files and folders are more or less necessary, but you can expect to
+interact with some combination of the following.
 
 **Necessary files and folders**
 
@@ -118,7 +119,7 @@ think about it ever again.
 > package to function. If you never intend to share your package with
 > the outside world, feel free to omit a license.
 
-For a simple guide to help choose the right license of you, click
+For a simple guide to help choose the right license for you, click
 [here](https://choosealicense.com/). For a more in depth discussion on
 licensing, click
 [here](https://thinkr-open.github.io/licensing-r/whatis.html).
@@ -152,40 +153,39 @@ touch the other automatically generated fields.
 
 In addition to the fields that are already in your file, there is
 additional information that you can provide, the most important of which
-include the Depends and Imports fields. These fields can be filled by
-using a variety of functions that I will not discuss in detail here.
-These functions, including `document()`, `use_package("package")`, and
-`use_github()` will be discussed later on in the workshop.
+include the Depends and Imports fields. These fields can be
+filled/created using a variety of functions that I will not discuss in
+detail here. These functions, including `document()`,
+`use_package("package")`, and `use_github()` will be discussed later on
+in the workshop. As your package develops, you should keep the
+DESCRIPTION file up to date.
 
 ### Add code to your package
 
-Now it would be a good time to start adding functions to the package.
-Copy and paste the functions from the MyFunctions.R file in this
-repository into the auto generated hello.R file in your R/ folder.
-
-This is probably a good place to make your first commit if you have
-initiated your project with a Git repository (do not worry about this if
-you have not). Click here…. for instruction on this front.
+Now is a good time to start adding functions to the package. Copy and
+paste the functions from the **MyFunctions.R** file in this repository
+into the automatically generated hello.R file in your R folder. You can
+delete the content of this file.
 
 Take a look at the contents of this file and note the different kinds of
 information contained in there.
 
-In addition to organising the code of our package, we will also be
-documenting using a special format that will allow us to build help
-files (users will be able to call `?function` or `help(function)` to
-find information). Much of the work for building help files has been
-made easier with the `roxygen2` and `devtools` packages. So lets get
-started by installing and loading those packages.
+In addition to organising the contents of this file, you will also be
+documenting them using a special format that will allow you to build
+help files (users will be able to call `?function` or `help(function)`
+to find information about a function). Much of the work for building
+help files has been made easier with the `roxygen2` and `devtools`
+packages.
 
 #### Package data
 
-The first thing that you will see is that this file contains a number of
-data.frames that are used to generate the output of one of the
+The first thing that you will notice is that the file contains a number
+of data objects that are used to generate the output of one of the
 functions. This information should not be contained in the R folder as
-they are not themselves functions. Here we will need to generate two new
-folders. A data folder which will contain the built data objects, as
-well as a data_raw file which will contain scripts to generate the data
-contained in the data folder.
+they are not themselves functions. To accommodate the data, you will
+need to generate two new folders. A data folder which will contain the
+built data objects, as well as a data_raw file which will contain
+scripts to generate the data contained in the data folder.
 
 Run the following line to generate the data_raw folder and initiate a
 file for defining the `magicAnswers` object.
@@ -195,10 +195,11 @@ use_data_raw("magicAnswers")
 ```
 
 Copy the code to generate the magicAnswers data.frame into the
-magicAnswers.R file which was opened within your RStudio. Make sure to
-not delete the `use_data(magicAnswers, overwrite = TRUE)` line when you
-do so. Run the magicAnswers.R script to generate the data folder as well
-as the magicAnswers.rda file within said folder.
+magicAnswers.R file which was automatically opened within your RStudio
+project. Make sure not to delete the
+`use_data(magicAnswers, overwrite = TRUE)` line when you do so. Run the
+magicAnswers.R script to generate the data folder as well as the
+magicAnswers.rda file within said folder.
 
 You can now reuse the above code, replacing “magicAnswers”, with
 “cookieAnswers”, and then “tarotAnswers”. Make sure to again copy the
@@ -221,7 +222,7 @@ hello.R file.
 > folder (the proper format for internal data).
 >
 > The issue with simply adding the `internal = TRUE` argument to each
-> instance of the `use_data` function in the example we have discussed
+> instance of the `use_data` function in the example we have discussed,
 > is that you will overwrite the sysdata.rda each time you use the
 > function. Therefore, if you have multiple data objects that you want
 > to make internal, you should combine all the relevant files in the
@@ -229,28 +230,29 @@ hello.R file.
 > function once at the end. Following the example that we have been
 > using in this workshop, the function would take the form:
 >
-> `use_data(magicAnswers, cookieAnswers, tarotAnswers, overwrite = TRUE, internal = TRUE)`
+> \`\`\`use_data(magicAnswers, cookieAnswers, tarotAnswers, overwrite =
+> TRUE, internal = TRUE)
+>
+> This will create a sysdata.rda file containing three objects. For the
+> purpose of this work shop, we will keep the data external to practice
+> documenting data.
 
-Now what we need to do is add some documentation for the data. This
-documentation will be used to generate help files that will explain the
-contents of the data, the form that it takes, and what it can be used
-for.
 
-The first thing to do is to generate a script that you will call data.R,
-and save in the R folder. This script will contain no data, only
-documentation. For each data object that you will make available to your
-users you will need to create an entry of the following format:
+    Now what you need to do is add some documentation for the data. This documentation will be used to generate help files that will explain the contents of the data, the form that it takes, and what it can be used for.
 
-``` r
-#' Name of your object.
-#'
-#' A description of what the object is.
-#'
-#' @format A description of the format that your object will take
-"objectName"
-```
+    The first thing to do is to generate a script that you will call data.R, and save in the R folder. This script will contain no data, only documentation. For each data object that you make available to your users, you will need to create an entry of the following format:
 
-For a example of this in action, click
+
+    ```r
+    #' Name of your object.
+    #'
+    #' A description of what the object is.
+    #'
+    #' @format A description of the format that your object will take
+    "objectName"
+
+Note that each line of the documentation is begins with `#'`. For a
+example of this in action, click
 [here](https://github.com/hadley/babynames/blob/master/R/data.R) to see
 the data documentation for the babynames data package built by Hadley
 Wickham. I will also give some examples of how to improve your
@@ -258,17 +260,17 @@ description of the format of your object.
 
 #### Documenting functions
 
-Now we can start to organise the functions in a useful way. There is no
-set way to do this, so you should pick something that is going to be
-most useful for you. Some people keep all their functions in the same
-file, others create a new file for each function in their package.
-Personally, I like to have a few files, each with their own theme. I
-will then organise the functions into each of these files according to
-what I think are useful groupings.
+Now you can start to organise the functions themselves in a useful way.
+Some people keep all their functions in a single file, others create a
+new file for each function in their package. Personally, I like to have
+a few files, each with their own theme. I will then organise the
+functions into each of these files according to what I think are useful
+groupings.
 
-Open how ever many scripts as you like and add the relevant functions to
-each script. Give each script a relevant name, and save in the R folder
-of your package.
+Open how ever many scripts as you think is useful, and add the relevant
+functions to each script. Give each script a relevant name, and save in
+the R folder of your package. Once you have finished this, you should no
+longer have a file called hello.R.
 
 The next step is to document your functions appropriately. This
 documentation will be used to generate the help files for the functions
@@ -284,8 +286,8 @@ The syntax is similar to that used for documenting data.
 #' Short title for the purpose of the function
 #' 
 #' A description of the behaviour of the function.
-#' @param x Description of the x parameter, inlcuding format.
-#' @param y Description of the x parameter, inlcuding format.
+#' @param x Description of the x parameter, including the expected format.
+#' @param y Description of the x parameter, including the expected format.
 #' @export
 #' @examples
 #' someFunc(1, 1)
@@ -293,6 +295,10 @@ someFunc <- function(x, y) {
   ...
 }
 ```
+
+Again, note that each line of the documentation is begins with `#'`.
+This is required for the `roxygen2` function to recognise that this
+information should be treated as documentation.
 
 The most important things to include in your package documentation is
 the title, the parameters, and to specify if the function will be
@@ -303,9 +309,9 @@ from within another function, and is only intended to support another
 function that is exported.
 
 You can quickly generate skeleton documentation by placing your cursor
-somewhere within your function, and then clicking on ‘Code’, then
-‘Insert roxygen skeleton’. You can then fill out this description to
-have meaningful information.
+somewhere within your function, and then clicking on **Code-\>Insert
+roxygen skeleton**. You can then fill out this description to have
+meaningful information.
 
 **Tags that you can use to document your functions are listed bellow:**
 
@@ -315,7 +321,7 @@ have meaningful information.
 | `@param`       | This input should be used for every parameter that is listed by your function. Should appear in the format `@param paramName Description of parameter and the format that parameter values should take.` |
 | `@details`     | Can be used if you would like to give some in depth description about the behavior of your function.                                                                                                     |
 | `@returns`     | To give details about the format of the output of your function.                                                                                                                                         |
-| `@export`      | Stated if the function is to be made available to users. No text should be provided.                                                                                                                     |
+| `@export`      | Stated if the function is to be made available to users. No additional text should be provided.                                                                                                          |
 | `@example`     | Used to give a self contained example of how the function can be used.                                                                                                                                   |
 | `@importFrom`  | Used to specify if there are any functions used internally by your function that originate from another package. should appear in the format `@importFrom packageName functionName`.                     |
 
@@ -326,10 +332,10 @@ having to load the entire supporting package into the environment.
 #### Generating NAMESPACE and help files
 
 Once you have finished documenting your data and functions, it is time
-to generate the content of the NAMESPACE file, and generate files for
-the man folder that are the basis for your help files.
+to generate the content of the NAMESPACE file, and files for the man
+folder (the basis for your help files).
 
-To do this all you need is to run the following line:
+To do this, all you need is to run the following line:
 
 ``` r
 document()
@@ -338,11 +344,11 @@ document()
 You may receive a warning message stating
 `Skipping NAMESPACE, It already exists and was not generated by roxygen2`.
 If this is the case, just delete your NAMESPACE file and rerun
-`document()`.
+`document()`. It will rebuild the NAMESPACE file in the correct format.
 
 Check the NAMESPACE file. It should contain a list of all the functions
-in your package. If it is missing something check that you have
-docuemted your functions correctly (specifically, that you included
+in your package. If it is missing something, check that you have
+documented your functions correctly (specifically, that you included
 `#' @export` in your documentation).
 
 Check the contents of your man folder. It should be filled with .Rd
@@ -351,10 +357,11 @@ files for each of your functions.
 You can now inspect the help files that your have generated using the
 standard forms: `?tellMyFortune`, or `help(tellMyFortune)`.
 
-Click the ‘Build’ tab in top right corner of your RStudio window,
-followed by install. You now have built and installed your own package!
+In top right pane of your RStudio window, click **Build-\>Install**.
+Alternatively, you can run the command `install()` in your console. You
+now have built and installed your own package!
 
-If you are already tracking your package with Git, not would be a good
+If you are already tracking your package with Git, now would be a good
 time to make a commit.
 
 ## Checking your package
@@ -365,24 +372,24 @@ aspects of building packages, many of these checks can be done
 automatically.
 
 There are two ways that you can run these automatic checks. The first is
-to click the ‘Build’ tab in the top right hand corner of your RStudio
-window, then click the ‘Check’ button. The second is to run `check()` in
-your console.
+to click **Build-\>Check** in the top right hand corner of your RStudio
+window. The second is to run `check()` in your console.
 
 In either case, you will see a large text output showing the outcome of
 these various checks. At the end of this output you will see a summary
 of the conclusions of the check that will look something like this:
 
 <center>
-<img src="pics/CheckOutput.png" width="400">
+<img src="pics/CheckOutput.png" width="300">
 </center>
 
-You can now scroll through the output for a better description of
-exactly what is causing these errors. As this functionality has been
-designed expressly to help users improve their packages, the error
-messages are usually extremely helpful and often prompt you on how to
-fix the issue. Errors need to be fixed for proper package functioning.
-You should resolve as many warnings and notes as is feasible.
+If issues with the package are flagged, you can now scroll through the
+output for a better description of exactly what is causing errors. As
+this functionality has been designed expressly to help users improve
+their packages, the error messages are usually extremely helpful and
+often prompt you on how to fix the issue. Errors need to be fixed for
+proper package functioning. You should resolve as many warnings and
+notes as is feasible.
 
 ## Vignettes
 
@@ -406,8 +413,11 @@ you are not interested in.
 
 If you want to see a preview of what the README will look like, click
 the <img src="pics/Knit.png" width="50"> button at the top of the main
-panel of RStudio. When you push your package to GitHub, the html version
-of your README will be visible in your GitHub package page.
+pane of RStudio. Alternatively, you can run `build_readme()`. When you
+push your package to GitHub, the html version of your README will be
+visible in your GitHub package page.
+
+How to install
 
 # How to use git to track your package over time
 
@@ -420,10 +430,10 @@ your first commit yourself.
 There are number of ways of interacting with Git (terminal, GitHub
 Desktop, RStudio…). I will keep it simple for this, and show you how you
 can keep track of your package just using RStudio functionality. In the
-top right panel, you should see a Git tab, if you click on it you will
-be given a number of tools that will allow you to interact with Git.
-Along the top panel of this tab are a number of buttons that can replace
-the most common Git terminal commands. This tab will also list any files
+top right pane, you should see a Git tab, if you click on it you will be
+given a number of tools that will allow you to interact with Git. Along
+the top pane of this tab are a number of buttons that can replace the
+most common Git terminal commands. This tab will also list any files
 that do not match the previous commit. This could be because the file
 was modified, or because the file has been created since the last
 commit. These types of files will appear as shown below.
@@ -456,7 +466,7 @@ will open up a window which will allow the user to explore the
 differences for each affected file. It is possible to stage files and
 commit them within this window.
 
-In the top panel of the Git tab, it is possible to pull from the remote
+In the top pane of the Git tab, it is possible to pull from the remote
 repository (blue down button), and push to the remote repository (green
 up button). You can view the previous commit messages by clicking the
 clock. The blue gear button provides functionality to **Revert…** to
@@ -545,16 +555,18 @@ Check Package: ‘Cmd + Shift + E’
 
 **List of functions**
 
-| Function                 | Purpose |
-|--------------------------|---------|
-| `create_package()`       |         |
-| `use_git()`              |         |
-| `use_gpl_license()`      |         |
-| `use_data_raw`           |         |
-| `document()`             |         |
-| `use_package("package")` |         |
-| `use_readme_rmd()`       |         |
-| `use_github()`           |         |
+| Function            | Purpose |
+|---------------------|---------|
+| `create_package()`  |         |
+| `use_git()`         |         |
+| `use_gpl_license()` |         |
+| `use_data_raw()`    |         |
+| `use_data()`        |         |
+| `document()`        |         |
+| `use_package()`     |         |
+| `use_readme_rmd()`  |         |
+| `build_readme()`    |         |
+| `use_github()`      |         |
 
 **Useful resources**
 

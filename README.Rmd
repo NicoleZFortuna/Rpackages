@@ -244,9 +244,9 @@ use_readme_rmd()
 
 This will build a README.Rmd file and open it. The file will contain a lot of prompts for things that you can include. Now you just need add some information to the file. You can delete sections that you are not interested in.
 
-If you want to see a preview of what the README will look like, click the <img src="pics/Knit.png" width="50"> button at the top of the main pane of RStudio. Alternatively, you can run `build_readme()`. When you push your package to GitHub, your README will be visible in your GitHub package page.
+If you want to see a preview of what the README will look like, click the <img src="pics/Knit.png" width="60"> button at the top of the main pane of RStudio. Alternatively, you can run `build_readme()`. When you push your package to GitHub, your README will be visible in your GitHub package page.
 
-To give instructions on how to install the package, add an R code chunk to your README. You can do this by clicking the ![](pics/CodeChunk.png){width=3%} button and then selecting **R**. Add the argument `eval=FALSE` to the code chunk to prevent the code from being evaluated. Within the code chunk you can give provide the code that will be used to install the package. The code chunk should look something like this:
+To give instructions on how to install the package, add an R code chunk to your README. You can do this by clicking the ![](pics/CodeChunk.png){width=45} button and then selecting **R**. Add the argument `eval=FALSE` to the code chunk to prevent the code from being evaluated. Within the code chunk you can give provide the code that will be used to install the package. The code chunk should look something like this:
 
 ![](pics/rEval.png){width=40%}
 

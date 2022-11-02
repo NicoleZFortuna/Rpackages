@@ -418,18 +418,18 @@ some information to the file. You can delete sections that you are not
 interested in.
 
 If you want to see a preview of what the README will look like, click
-the <img src="pics/Knit.png" width="50"> button at the top of the main
+the <img src="pics/Knit.png" width="60"> button at the top of the main
 pane of RStudio. Alternatively, you can run `build_readme()`. When you
 push your package to GitHub, your README will be visible in your GitHub
 package page.
 
 To give instructions on how to install the package, add an R code chunk
 to your README. You can do this by clicking the
-<img src="pics/CodeChunk.png" style="width:3.0%" /> button and then
-selecting **R**. Add the argument `eval=FALSE` to the code chunk to
-prevent the code from being evaluated. Within the code chunk you can
-give provide the code that will be used to install the package. The code
-chunk should look something like this:
+<img src="pics/CodeChunk.png" width="45" /> button and then selecting
+**R**. Add the argument `eval=FALSE` to the code chunk to prevent the
+code from being evaluated. Within the code chunk you can give provide
+the code that will be used to install the package. The code chunk should
+look something like this:
 
 <img src="pics/rEval.png" style="width:40.0%" />
 

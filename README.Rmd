@@ -12,14 +12,16 @@ knitr::opts_chunk$set(
 ```
 # Building R Packages
 
-This is a workshop which has been designed as a guided walkthrough for how to organise a series of functions into an R package. The building of functions themselves is outside of the scope of of this workshop. For a refresher on function construction you can visit the following: https://r4ds.had.co.nz/functions.html.
+This is a workshop which has been designed as a guided walk through for how to organise a series of functions into an R package. Building functions is outside of the scope of of this workshop. For a refresher on function construction click [here](https://r4ds.had.co.nz/functions.html).
 
-This workshop is meant as a guide to assist in the conversion of the functions contained in the MyFunctions.R file of this GitHub repository, into an R package.
+This workshop comes with a set of existing functions contained in the MyFunctions.R file of this GitHub repository. If you would prefer to use some of your own existing functions, you are welcome to do so. If you choose to do so, not every part of the workshop will apply to you.
+
+Much of the process of R package building has been automated by a variety of packages that have all had a significant contribution from Hadley Wickham.
 
 ```{r, eval = FALSE}
-install.packages("usethis")
 install.packages("roxygen2")
 install.packages("devtools")
+install.packages("usethis")
 ```
 
 ## Initiating a new package
